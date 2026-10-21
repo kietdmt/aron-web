@@ -1,0 +1,508 @@
+{
+ "labels": {
+  "industry": {
+   "vi": "Ngành",
+   "en": "Industry"
+  },
+  "location": {
+   "vi": "Địa điểm",
+   "en": "Location"
+  }
+ },
+ "items": [
+  {
+   "sort": 0,
+   "name": "Dai Thuan Corporation",
+   "logo": "/img/aron-client/logo-dai-thuan.png",
+   "industry": {
+    "vi": "Phân phối thực phẩm",
+    "en": "Food Distribution"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 1,
+   "name": "B.Grimm Power Vietnam",
+   "logo": "/img/aron-client/B.GRimm.png",
+   "industry": {
+    "vi": "Năng lượng tái tạo",
+    "en": "Renewable Energy"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 2,
+   "name": "Giao Hang Tiet Kiem",
+   "logo": "/img/aron-client/Giao Hang Tiet Kiem.png",
+   "industry": {
+    "vi": "Du lịch và vận tải",
+    "en": "Travel and Transportation"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 3,
+   "name": "Hoan My Hospital",
+   "logo": "/img/aron-client/hoanmy.jpg",
+   "industry": {
+    "vi": "Y tế & Dược phẩm",
+    "en": "Healthcare & Pharmaceuticals"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 4,
+   "name": "CellphoneS",
+   "logo": "/img/aron-client/CellphoneS.png",
+   "industry": {
+    "vi": "Bán lẻ",
+    "en": "Retail"
+   },
+   "location": {
+    "vi": "Ho Chi Minh City and Ha Noi, Vietnam",
+    "en": "Ho Chi Minh City and Ha Noi, Vietnam"
+   }
+  },
+  {
+   "sort": 5,
+   "name": "Circle K",
+   "logo": "/img/aron-client/Circle K.png",
+   "industry": {
+    "vi": "Bán lẻ",
+    "en": "Retail"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 6,
+   "name": "Trung Son Pharma",
+   "logo": "/img/aron-client/Trung Son Pharma 2.png",
+   "industry": {
+    "vi": "Y tế & Dược phẩm",
+    "en": "Healthcare & Pharmaceuticals"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 7,
+   "name": "VT Healthcare",
+   "logo": "/img/aron-client/VT Healthcare.png",
+   "industry": {
+    "vi": "Y tế & Dược phẩm",
+    "en": "Healthcare & Pharmaceuticals"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 8,
+   "name": "JUNO",
+   "logo": "/img/aron-client/JUNO.png",
+   "industry": {
+    "vi": "Bán lẻ",
+    "en": "Retail"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 9,
+   "name": "ABA Cooltrans",
+   "logo": "/img/aron-client/ABA Cooltrans.jpg",
+   "industry": {
+    "vi": "Du lịch và vận tải",
+    "en": "Travel and Transportation"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 10,
+   "name": "Bao Minh Textile",
+   "logo": "/img/aron-client/Bao Minh Textile.png",
+   "industry": {
+    "vi": "Sản xuất công nghiệp",
+    "en": "Industrial Manufacturing"
+   },
+   "location": {
+    "vi": "Nam Dinh, Vietnam",
+    "en": "Nam Dinh, Vietnam"
+   }
+  },
+  {
+   "sort": 11,
+   "name": "Cau Dat Farm",
+   "logo": "/img/aron-client/Cau Dat Farm 1.png",
+   "industry": {
+    "vi": "Thực phẩm & Đồ uống",
+    "en": "Food and Beverage"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 12,
+   "name": "Diligo Holdings",
+   "logo": "/img/aron-client/Diligo.jpeg",
+   "industry": {
+    "vi": "Phân phối bán buôn",
+    "en": "Wholesale Distribution"
+   },
+   "location": {
+    "vi": "Ha Noi, Vietnam",
+    "en": "Ha Noi, Vietnam"
+   }
+  },
+  {
+   "sort": 13,
+   "name": "Dong Tam Group",
+   "logo": "/img/aron-client/Dong Tam.jpg",
+   "industry": {
+    "vi": "Sản xuất công nghiệp",
+    "en": "Industrial Manufacturing"
+   },
+   "location": {
+    "vi": "Long An, Vietnam",
+    "en": "Long An, Vietnam"
+   }
+  },
+  {
+   "sort": 14,
+   "name": "eSilicon",
+   "logo": "/img/aron-client/eSilicon.jpg",
+   "industry": {
+    "vi": "Sản xuất công nghiệp",
+    "en": "Industrial Manufacturing"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 15,
+   "name": "Fico PanU",
+   "logo": "/img/aron-client/Fico PanU.png",
+   "industry": {
+    "vi": "Sản xuất công nghiệp",
+    "en": "Industrial Manufacturing"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 16,
+   "name": "GE - General Electric",
+   "logo": "/img/aron-client/GE.jpg",
+   "industry": {
+    "vi": "Nước và năng lượng",
+    "en": "Water and Energy"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 17,
+   "name": "GHN",
+   "logo": "/img/aron-client/GHN.jpg",
+   "industry": {
+    "vi": "Du lịch và Vận tải",
+    "en": "Travel and Transportatio"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 18,
+   "name": "Hnoss",
+   "logo": "/img/aron-client/Hnoss.png",
+   "industry": {
+    "vi": "Bán lẻ",
+    "en": "Retail"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 19,
+   "name": "Hoang Phuc",
+   "logo": "/img/aron-client/Hoang Phuc.jpg",
+   "industry": {
+    "vi": "Bán lẻ",
+    "en": "Retail"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 20,
+   "name": "Lasuco",
+   "logo": "/img/aron-client/Lasuco.jpg",
+   "industry": {
+    "vi": "Sản xuất công nghiệp",
+    "en": "Industrial Manufacturing"
+   },
+   "location": {
+    "vi": "Thanh Hoa, Vietnam",
+    "en": "Thanh Hoa, Vietnam"
+   }
+  },
+  {
+   "sort": 21,
+   "name": "Masan Anco",
+   "logo": "/img/aron-client/Masan Anco.jpg",
+   "industry": {
+    "vi": "Masan Anco",
+    "en": "Masan Anco"
+   },
+   "location": {
+    "vi": "Bien Hoa, Vietnam",
+    "en": "Bien Hoa, Vietnam"
+   }
+  },
+  {
+   "sort": 22,
+   "name": "Microstar",
+   "logo": "/img/aron-client/MicroStar.jpg",
+   "industry": {
+    "vi": "Phân phối bán buôn",
+    "en": "Wholesale Distribution"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 23,
+   "name": "The Coffee House",
+   "logo": "/img/aron-client/The Coffee House.png",
+   "industry": {
+    "vi": "Thực phẩm & Đồ uống",
+    "en": "Food and Beverage"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 24,
+   "name": "Nha Khoa Kim",
+   "logo": "/img/aron-client/Nha Khoa Kim.jpg",
+   "industry": {
+    "vi": "Y tế & Dược phẩm",
+    "en": "Healthcare & Pharmaceuticals"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 25,
+   "name": "OEIC Optoelectronics International JSC",
+   "logo": "/img/aron-client/OEIC.jpg",
+   "industry": {
+    "vi": "Nước và năng lượng",
+    "en": "Water and Energy"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 26,
+   "name": "Saigon Paper",
+   "logo": "/img/aron-client/Saigon Paper.png",
+   "industry": {
+    "vi": "Sản xuất công nghiệp",
+    "en": "Industrial Manufacturing"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 27,
+   "name": "Seedcom",
+   "logo": "/img/aron-client/Seedcom_NewLogo.png",
+   "industry": {
+    "vi": "Bán lẻ",
+    "en": "Retail"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 28,
+   "name": "Siam Brother Vietnam",
+   "logo": "/img/aron-client/Siam Brother Vietnam.png",
+   "industry": {
+    "vi": "Sản xuất công nghiệp",
+    "en": "Industrial Manufacturing"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 29,
+   "name": "SP-PSA",
+   "logo": "/img/aron-client/SPPSA.png",
+   "industry": {
+    "vi": "Du lịch và vận tải",
+    "en": "Travel and Transportation"
+   },
+   "location": {
+    "vi": "Ba Ria - Vung Tau, Vietnam",
+    "en": "Ba Ria - Vung Tau, Vietnam"
+   }
+  },
+  {
+   "sort": 30,
+   "name": "Suntory Pepsico",
+   "logo": "/img/aron-client/Suntory Pepsico.jpeg",
+   "industry": {
+    "vi": "Sản xuất công nghiệp",
+    "en": "Industrial Manufacturing"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 31,
+   "name": "TTC Group",
+   "logo": "/img/aron-client/TTC Group.jpg",
+   "industry": {
+    "vi": "Đa ngành",
+    "en": "Multi-industry"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 32,
+   "name": "TTC Land",
+   "logo": "/img/aron-client/ttc land.jpg",
+   "industry": {
+    "vi": "Phân phối bán buôn",
+    "en": "Wholesale Distribution"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 33,
+   "name": "TTC Sugar",
+   "logo": "/img/aron-client/TTC Sugar.png",
+   "industry": {
+    "vi": "Sản xuất công nghiệp",
+    "en": "Industrial Manufacturing"
+   },
+   "location": {
+    "vi": "Tay Ninh, Vietnam",
+    "en": "Tay Ninh, Vietnam"
+   }
+  },
+  {
+   "sort": 34,
+   "name": "Taiky Food",
+   "logo": "/img/aron-client/Tai Ky Food.png",
+   "industry": {
+    "vi": "Sản xuất công nghiệp",
+    "en": "Industrial Manufacturing"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 35,
+   "name": "TTC Hospitality",
+   "logo": "/img/aron-client/TTCH.png",
+   "industry": {
+    "vi": "Khách sạn",
+    "en": "Hospitality"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 36,
+   "name": "",
+   "logo": "/img/aron-client/WMC Van Thinh Phat.png",
+   "industry": {
+    "vi": "Khách sạn",
+    "en": "Hospitality"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  },
+  {
+   "sort": 37,
+   "name": "Lucky Group",
+   "logo": "/img/aron-client/lucky_gr.jpg",
+   "industry": {
+    "vi": "Sản xuất và phân phối",
+    "en": "Manufacturing and distribution"
+   },
+   "location": {
+    "vi": "Thành phố Hồ Chí Minh, Việt Nam",
+    "en": "Ho Chi Minh City, Vietnam"
+   }
+  }
+ ]
+}
