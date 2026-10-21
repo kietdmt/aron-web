@@ -477,3 +477,17 @@ a.more, .more, .feature .more { color: var(--plum-d); }
 .map-card h2 .material-symbols-outlined { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(145deg, #e4f3f1, #fdeae6); color: var(--slate); font-size: 22px; }
 .map-card li a { display: block; padding: 8px 0; font-weight: 600; font-size: .94rem; color: var(--ink-2); }
 .map-card li a:hover { color: var(--teal-d); padding-left: 4px; transition: .15s; }
+
+/* v3.3: màn hình rộng (24"+) — nền hero phủ kín, không lặp, không lộ đường nối */
+.hero, .hero-home, .blog-hero {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center right !important;
+  background-color: var(--slate);
+}
+.hero-home { min-height: clamp(560px, 46vw, 820px); display: flex; align-items: center; }
+@media (min-width: 1700px) {
+  .container { width: min(1400px, 100% - 80px); }
+  .hero-home h1 { font-size: clamp(3.4rem, 3.4vw, 4.6rem); max-width: 17ch; }
+  .hero-home .lead { font-size: 1.3rem; max-width: 56ch; }
+}
