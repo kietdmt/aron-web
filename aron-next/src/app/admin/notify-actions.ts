@@ -48,7 +48,7 @@ export async function testNotify(_p: NState | null, fd: FormData): Promise<NStat
     await sendMail(cfg, {
       to: rec.to, cc: rec.cc, subject: `[ARON Website] THƯ THỬ — ${KIND_META[kind].title}`,
       text: buildBody(kind, [["Ghi chú", "Đây là thư gửi thử từ trang quản trị, không phải dữ liệu thật."], ["Người gửi thử", ctx.email]]),
-    }, 8000);
+    }, 25000);
     await audit(ctx, "notify.test", "notify_rules", kind);
     return { ok: `Đã gửi thư thử tới: ${rec.to.join(", ")}${rec.cc.length ? ` (CC: ${rec.cc.join(", ")})` : ""}. Hãy kiểm tra hộp thư (cả thư rác).` };
   } catch (e) {

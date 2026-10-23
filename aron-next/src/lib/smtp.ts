@@ -128,6 +128,7 @@ export async function sendMail(cfg: SmtpConfig, m: MailInput, timeoutMs = 15000)
   const c = new Conn();
   const secure = cfg.port === 465;
   let finished = false;
+  let stage = "kết nối tới máy chủ";
   const run = async () => {
     const sock: net.Socket = await new Promise((ok, fail) => {
       const s = secure
@@ -136,12 +137,15 @@ export async function sendMail(cfg: SmtpConfig, m: MailInput, timeoutMs = 15000)
       s.once("error", fail);
     });
     c.attach(sock);
+    stage = "chờ máy chủ chào (220)";
     const hello = await c.read();
     if (hello.code !== 220) throw new Error(`Máy chủ email từ chối kết nối (${hello.code})`);
     const me = "aron-web";
+    stage = "bắt tay EHLO";
     let caps = (await c.cmd(`EHLO ${me}`, [250])).lines.join("\n").toUpperCase();
     if (!secure) {
       if (!caps.includes("STARTTLS")) throw new Error("Máy chủ email không hỗ trợ mã hoá STARTTLS — từ chối gửi để bảo vệ mật khẩu");
+      stage = "mã hoá STARTTLS";
       await c.cmd("STARTTLS", [220]);
       c.detach();
       const t: tls.TLSSocket = await new Promise((ok, fail) => {
@@ -151,6 +155,7 @@ export async function sendMail(cfg: SmtpConfig, m: MailInput, timeoutMs = 15000)
       c.attach(t);
       caps = (await c.cmd(`EHLO ${me}`, [250])).lines.join("\n").toUpperCase();
     }
+    stage = "đăng nhập";
     if (cfg.user) {
       if (/AUTH[ =].*PLAIN/.test(caps)) {
         await c.cmd(`AUTH PLAIN ${b64(`\u0000${cfg.user}\u0000${cfg.pass}`)}`, [235], true);
@@ -160,6 +165,7 @@ export async function sendMail(cfg: SmtpConfig, m: MailInput, timeoutMs = 15000)
         await c.cmd(b64(cfg.pass), [235], true);
       }
     }
+    stage = "gửi thư";
     await c.cmd(`MAIL FROM:<${envFrom}>`, [250]);
     for (const r of rcpt) await c.cmd(`RCPT TO:<${r}>`, [250, 251]);
     await c.cmd("DATA", [354]);
@@ -174,7 +180,7 @@ export async function sendMail(cfg: SmtpConfig, m: MailInput, timeoutMs = 15000)
   try {
     await Promise.race([
       run(),
-      new Promise<never>((_, fail) => { timer = setTimeout(() => fail(new Error("Hết thời gian chờ máy chủ email")), timeoutMs); }),
+      new Promise<never>((_, fail) => { timer = setTimeout(() => fail(new Error(`Hết thời gian chờ máy chủ email (kẹt ở bước: ${stage}; máy chủ ${cfg.host}:${cfg.port})`)), timeoutMs); }),
     ]);
   } finally {
     if (timer) clearTimeout(timer);

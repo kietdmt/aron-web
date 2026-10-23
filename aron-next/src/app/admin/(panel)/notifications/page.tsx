@@ -3,6 +3,7 @@ import { KIND_META, smtpConfig, type NotifyKind } from "@/lib/mail";
 import NotifyCard from "./NotifyCard";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 30;
 type Row = { kind: NotifyKind; enabled: boolean; include_role: boolean; to_emails: string[]; cc_emails: string[]; last_status: string | null; last_error: string | null; last_at: string | null };
 
 export default async function Notifications() {

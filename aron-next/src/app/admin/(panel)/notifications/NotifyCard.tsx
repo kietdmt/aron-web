@@ -15,8 +15,8 @@ export default function NotifyCard(p: Props) {
       <h3>{p.title}</h3>
       <form action={save} className="form">
         <input type="hidden" name="kind" value={p.kind} />
-        <label className="fe-row"><span><input type="checkbox" name="enabled" defaultChecked={p.enabled} /> Bật gửi email cho loại này</span></label>
-        <label className="fe-row"><span><input type="checkbox" name="include_role" defaultChecked={p.includeRole} /> Tự gửi cho mọi tài khoản vai trò “{p.roleLabel}”</span></label>
+        <label className="fe-row fe-check"><input type="checkbox" name="enabled" defaultChecked={p.enabled} /><span>Bật gửi email cho loại này</span></label>
+        <label className="fe-row fe-check"><input type="checkbox" name="include_role" defaultChecked={p.includeRole} /><span>Tự gửi cho mọi tài khoản vai trò “{p.roleLabel}”</span></label>
         <label className="fe-row"><span>Gửi thêm tới (mỗi dòng một email)</span><textarea name="to" rows={3} defaultValue={p.to} placeholder="vd: sales@aron.com.vn" /></label>
         <label className="fe-row"><span>CC cho (mỗi dòng một email)</span><textarea name="cc" rows={3} defaultValue={p.cc} placeholder="vd: giamdoc@aron.com.vn" /></label>
         <button className="btn btn-sm" disabled={sp}>Lưu cấu hình</button>

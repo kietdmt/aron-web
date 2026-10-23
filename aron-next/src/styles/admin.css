@@ -220,3 +220,7 @@ body.admin .btn-outline:hover, body.admin .btn.btn-outline:hover { background-co
 .md-preview { padding: 16px 22px; border-left: 1px solid var(--line); max-height: 560px; overflow: auto; background: #fdfcf9; font-size: .98rem; }
 .md-preview img { max-width: 100%; }
 @media (max-width: 900px) { .md-panes.split { grid-template-columns: 1fr; } .md-preview { border-left: 0; border-top: 1px solid var(--line); } }
+
+/* ô tick nằm cùng hàng với chữ */
+.fe-row.fe-check { flex-direction: row; align-items: center; gap: 10px; }
+.fe-row.fe-check input[type="checkbox"] { width: 18px; height: 18px; flex: none; }
