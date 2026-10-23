@@ -6,6 +6,8 @@ import { getNav } from "@/lib/content";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PreFooter from "@/components/PreFooter";
+import ChatWidget from "@/components/ChatWidget";
+import { chatEnabled } from "@/lib/chat/providers";
 import "@/styles/globals.css";
 
 const font = Montserrat({ subsets: ["latin", "vietnamese"], display: "swap", variable: "--font-sans" });
@@ -41,6 +43,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
         <main id="main">{children}</main>
         <PreFooter locale={locale} />
         <Footer locale={locale} nav={nav} />
+        {chatEnabled() && <ChatWidget locale={locale} />}
       </body>
     </html>
   );
