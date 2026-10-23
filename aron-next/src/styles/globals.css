@@ -569,3 +569,14 @@ a.more, .more, .feature .more { color: var(--plum-d); }
 
 /* v3.9: số liệu nổi bật — chữ số cùng độ rộng, không giật khi chạy số */
 .stats strong, .count-up { font-variant-numeric: tabular-nums; }
+
+/* v3.10: số liệu nổi bật — chạy chậm, hiện lần lượt, vệt sáng khi xong */
+.count-up, .stat-suffix { font-style: normal; font-weight: inherit; color: inherit; display: inline-block; }
+.stats li { transition: opacity .9s ease, transform .9s cubic-bezier(.2, .8, .2, 1); }
+.stats li.stat-pre { opacity: 0; transform: translateY(22px); }
+.stats strong { background-image: linear-gradient(100deg, var(--teal-d) 0%, var(--coral) 36%, #fff0bd 50%, var(--teal-d) 64%, var(--coral) 100%); background-size: 260% 100%; background-position: 0 0; }
+.stats strong.done { animation: statSheen 1.6s ease-in-out .1s both; }
+.stats strong.done .stat-suffix { animation: statPlus .7s cubic-bezier(.3, 1.7, .5, 1) both; }
+@keyframes statSheen { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@keyframes statPlus { 0% { transform: scale(.2) rotate(-90deg); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .stats li { transition: none; } .stats strong.done, .stats strong.done .stat-suffix { animation: none; } }

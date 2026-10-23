@@ -239,7 +239,7 @@ export default function Blocks({ blocks, locale, jobSlug }: { blocks: Block[]; l
                   <ul className="stats">
                     {b.items.map((s, k) => (
                       <li key={k}>
-                        <strong><CountUp value={statValue(s.value)} />{s.suffix}</strong>
+                        <strong><CountUp value={statValue(s.value)} suffix={s.suffix} /></strong>
                         <span>{s.label}</span>
                       </li>
                     ))}
