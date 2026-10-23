@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PreFooter from "@/components/PreFooter";
 import ChatWidget from "@/components/ChatWidget";
+import ScrollReveal from "@/components/ScrollReveal";
 import { chatEnabled } from "@/lib/chat/providers";
 import "@/styles/globals.css";
 
@@ -43,6 +44,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
         <main id="main">{children}</main>
         <PreFooter locale={locale} />
         <Footer locale={locale} nav={nav} />
+        <ScrollReveal />
         {chatEnabled() && <ChatWidget locale={locale} />}
       </body>
     </html>

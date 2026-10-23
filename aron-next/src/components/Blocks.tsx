@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import CountUp from "./CountUp";
+import HeroField from "./HeroField";
 import { localizeHref, type Locale } from "@/lib/i18n";
 import type { Block } from "@/lib/types";
 import { getClients } from "@/lib/content";
@@ -64,7 +65,8 @@ export default function Blocks({ blocks, locale, jobSlug }: { blocks: Block[]; l
           case "hero":
             if (b.variant === "home")
               return (
-                <section key={i} className="hero hero-home" style={{ backgroundImage: heroBg(b.image, 0.9) }}>
+                <section key={i} className="hero hero-home" style={{ backgroundImage: heroBg(b.image.endsWith("bg-net.svg") ? "/img/art/bg-hero.svg" : b.image, 0.9) }}>
+                  <HeroField />
                   <div className={`container hero-grid${b.art ? " has-art" : ""}`}>
                     <div className="hero-copy">
                       <p className="eyebrow light">{b.kicker}</p>
@@ -80,7 +82,7 @@ export default function Blocks({ blocks, locale, jobSlug }: { blocks: Block[]; l
                         <Link className="btn btn-ghost" href={L(b.secondary?.href || "/services/oracle-implementation/")}>{b.secondary?.label || (locale === "vi" ? "Khám phá dịch vụ" : "Explore services")}</Link>
                       </div>
                     </div>
-                    {b.art && <img className="hero-art-img" src={b.art} alt="" />}
+                    {b.art && <div className="hero-art-wrap"><img className="hero-art-img" src={b.art} alt="" /></div>}
                   </div>
                 </section>
               );

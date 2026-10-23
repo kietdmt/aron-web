@@ -580,3 +580,15 @@ a.more, .more, .feature .more { color: var(--plum-d); }
 @keyframes statSheen { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @keyframes statPlus { 0% { transform: scale(.2) rotate(-90deg); opacity: 0; } 100% { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .stats li { transition: none; } .stats strong.done, .stats strong.done .stat-suffix { animation: none; } }
+
+/* v3.11: hero "thảm cỏ lụa" — canvas lá tương tác nằm dưới nội dung */
+.hero-field { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.hero-home > .container { position: relative; z-index: 1; }
+.hero-art-wrap { will-change: transform; transform-origin: 50% 55%; }
+@media (hover: none) { .hero-art-wrap { transform: none !important; } }
+
+/* v3.12: hiện nhẹ nhàng khi cuộn tới lần đầu */
+.rv { opacity: 0; transform: translate3d(0, 28px, 0); transition: opacity .9s ease var(--rv-d, 0ms), transform 1s cubic-bezier(.2, .8, .2, 1) var(--rv-d, 0ms) !important; will-change: opacity, transform; }
+.rv.rv-img { transform: translate3d(0, 22px, 0) scale(.965); }
+.rv.rv-in { opacity: 1; transform: none; }
+@media print, (prefers-reduced-motion: reduce) { .rv { opacity: 1 !important; transform: none !important; transition: none !important; } }
