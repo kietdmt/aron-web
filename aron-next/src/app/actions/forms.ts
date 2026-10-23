@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { headers } from "next/headers";
 import { z } from "zod";
 import { createServiceClient, hasSupabase } from "@/lib/supabase/server";
+import { notifyNew } from "@/lib/mail";
 
 export type FormState = { ok?: boolean; error?: "invalid" | "rate" | "server" };
 
@@ -59,6 +60,10 @@ export async function submitContact(_prev: FormState | null, fd: FormData): Prom
       message: d.message || null, locale: d.locale, ip_hash: g.ipHash,
     });
     if (error) throw error;
+    await notifyNew("lead", `[ARON Website] Liên hệ / yêu cầu demo mới: ${d.name}`, [
+      ["Họ tên", d.name], ["Điện thoại", d.phone], ["Email", d.email || ""], ["Công ty", d.company || ""],
+      ["Nội dung", d.message || ""], ["Ngôn ngữ", d.locale === "vi" ? "Tiếng Việt" : "English"],
+    ], d.email || undefined);
     return { ok: true };
   } catch (e) {
     console.error("submitContact", e);
@@ -98,6 +103,10 @@ export async function submitApplication(_prev: FormState | null, fd: FormData): 
       cover_letter: d.coverLetter || null, job_slug: d.job || null, locale: d.locale, ip_hash: g.ipHash,
     });
     if (error) throw error;
+    await notifyNew("application", `[ARON Website] Hồ sơ ứng tuyển mới: ${d.fullName}${d.job ? ` — ${d.job}` : ""}`, [
+      ["Họ tên", d.fullName], ["Email", d.email], ["Điện thoại", d.phone], ["Vị trí ứng tuyển", d.job || ""],
+      ["Liên kết CV", d.cvUrl || ""], ["Thư giới thiệu", d.coverLetter || ""],
+    ], d.email);
     return { ok: true };
   } catch (e) {
     console.error("submitApplication", e);

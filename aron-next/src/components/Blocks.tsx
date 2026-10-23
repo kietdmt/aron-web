@@ -17,6 +17,14 @@ const heroBg = (img: string, strength = 0.78) =>
     ? `url("${cssUrl(img)}")`
     : `linear-gradient(90deg,rgba(15,15,15,${strength}),rgba(15,15,15,.3)),url("${cssUrl(img)}")`;
 
+/** Số liệu tự tăng: nhập "auto:2009" ở ô Giá trị → hiển thị (năm hiện tại − 2009). */
+const statValue = (v: string) => {
+  const m = /^auto:(\d{4})$/.exec(v.trim());
+  if (!m) return v;
+  const year = Number(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh", year: "numeric" }));
+  return String(Math.max(0, year - Number(m[1])));
+};
+
 /** Chỉ cho phép URL nhúng bản đồ Google (tránh iframe tuỳ ý nếu dữ liệu DB bị sửa). */
 const safeMap = (u: string) => (u.startsWith("https://www.google.com/maps/embed") ? u : "");
 
@@ -59,7 +67,12 @@ export default function Blocks({ blocks, locale, jobSlug }: { blocks: Block[]; l
                   <div className={`container hero-grid${b.art ? " has-art" : ""}`}>
                     <div className="hero-copy">
                       <p className="eyebrow light">{b.kicker}</p>
-                      <h1><span className="accent">{b.brand}</span> {b.title}</h1>
+                      <h1>
+                        <span className="accent">{b.brand}</span>{" "}
+                        {b.title.split(/(Oracle)/g).map((t, k) =>
+                          t === "Oracle" ? <span key={k} className="oracle-red">{t}</span> : t
+                        )}
+                      </h1>
                       {b.lead && <p className="lead">{b.lead}</p>}
                       <div className="btn-row">
                         <Link className="btn" href={L(b.cta?.href || "/contact-us/")}>{b.cta?.label || (locale === "vi" ? "Yêu cầu demo" : "Request a demo")}</Link>
@@ -225,7 +238,7 @@ export default function Blocks({ blocks, locale, jobSlug }: { blocks: Block[]; l
                   <ul className="stats">
                     {b.items.map((s, k) => (
                       <li key={k}>
-                        <strong>{s.value}{s.suffix}</strong>
+                        <strong>{statValue(s.value)}{s.suffix}</strong>
                         <span>{s.label}</span>
                       </li>
                     ))}

@@ -491,3 +491,7 @@ a.more, .more, .feature .more { color: var(--plum-d); }
   .hero-home h1 { font-size: clamp(3.4rem, 3.4vw, 4.6rem); max-width: 17ch; }
   .hero-home .lead { font-size: 1.3rem; max-width: 56ch; }
 }
+
+/* v3.4: tiêu đề hero — ARON màu cam, Oracle đỏ chuẩn logo Oracle */
+.hero-home h1 .accent { color: #f28c28 !important; font-weight: 800 !important; }
+.hero-home h1 .oracle-red { color: #f80000 !important; font-weight: 300 !important; }

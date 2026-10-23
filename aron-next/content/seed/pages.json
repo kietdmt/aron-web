@@ -31,7 +31,7 @@
               "label": "ARON được thành lập"
             },
             {
-              "value": "16",
+              "value": "auto:2009",
               "suffix": "+",
               "label": "năm kinh nghiệm ERP"
             },
@@ -273,7 +273,7 @@
               "label": "ARON was established"
             },
             {
-              "value": "16",
+              "value": "auto:2009",
               "suffix": "+",
               "label": "years of ERP experience"
             },
@@ -532,7 +532,7 @@
               "label": "ARON được thành lập"
             },
             {
-              "value": "16",
+              "value": "auto:2009",
               "suffix": "+",
               "label": "năm kinh nghiệm ERP"
             },
@@ -580,7 +580,7 @@
               "label": "ARON was established"
             },
             {
-              "value": "16",
+              "value": "auto:2009",
               "suffix": "+",
               "label": "years of ERP experience"
             },

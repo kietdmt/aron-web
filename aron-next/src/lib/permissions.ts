@@ -8,7 +8,7 @@ export type Perm =
   | "leads.view" | "leads.edit"
   | "applications.view" | "applications.edit"
   | "content.delete"
-  | "users.manage" | "audit.view";
+  | "users.manage" | "audit.view" | "notify.manage";
 
 export const ROLES: Role[] = ["admin", "editor", "hr", "sales", "viewer"];
 export const ROLE_LABEL: Record<Role, string> = {

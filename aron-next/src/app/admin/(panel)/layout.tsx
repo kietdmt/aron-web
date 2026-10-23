@@ -26,6 +26,7 @@ const GROUPS: { label: string; links: L[] }[] = [
     label: "Hệ thống",
     links: [
       { href: "/admin/users", label: "Người dùng & quyền", icon: "admin_panel_settings", perm: "users.manage" },
+      { href: "/admin/notifications", label: "Thông báo email", icon: "mail", perm: "notify.manage" },
       { href: "/admin/audit", label: "Nhật ký thao tác", icon: "history", perm: "audit.view" },
     ],
   },
