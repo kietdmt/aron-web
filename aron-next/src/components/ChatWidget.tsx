@@ -5,6 +5,7 @@ import type { Locale } from "@/lib/i18n";
 
 type Msg = { role: "user" | "assistant"; content: string };
 const KEY = "aron-chat-v1";
+const TK = "aron-chat-teaser";
 
 const S = {
   vi: {
@@ -12,6 +13,7 @@ const S = {
     hello: "Xin chào! Mình là trợ lý của ARON. Bạn muốn tìm hiểu về giải pháp ERP, dịch vụ Oracle hay cơ hội nghề nghiệp?",
     note: "Trợ lý AI có thể nhầm lẫn. Vui lòng không gửi mật khẩu hay thông tin thanh toán trong khung chat.",
     placeholder: "Nhập câu hỏi…", send: "Gửi", typing: "Đang trả lời…",
+    teaser: "Xin chào 👋 Bạn cần tư vấn về giải pháp ERP? Mình có thể giúp!",
     chips: ["Dịch vụ của ARON", "Tôi muốn xem demo", "Cơ hội tuyển dụng"],
     errBusy: "Hệ thống đang bận, bạn thử lại sau ít phút nhé.", errRate: "Bạn gửi hơi nhanh, vui lòng chờ một chút rồi thử lại.", errGeneric: "Xin lỗi, hiện chưa trả lời được. Bạn có thể để lại thông tin để chuyên gia ARON liên hệ.",
     leadBtn: "Để lại thông tin", leadTitle: "Để chuyên gia ARON liên hệ bạn", name: "Họ tên *", phone: "Số điện thoại *", email: "Email", company: "Công ty",
@@ -22,6 +24,7 @@ const S = {
     hello: "Hello! I'm ARON's assistant. Would you like to know about ERP solutions, Oracle services or careers?",
     note: "The AI assistant can make mistakes. Please don't share passwords or payment details in this chat.",
     placeholder: "Type your question…", send: "Send", typing: "Replying…",
+    teaser: "Hi 👋 Need help with ERP solutions? I'm here to help!",
     chips: ["ARON services", "I'd like a demo", "Career opportunities"],
     errBusy: "We're busy right now, please try again in a few minutes.", errRate: "You're sending messages a bit fast, please wait a moment.", errGeneric: "Sorry, I can't answer right now. You can leave your details and an ARON expert will contact you.",
     leadBtn: "Leave your details", leadTitle: "Let an ARON expert contact you", name: "Full name *", phone: "Phone *", email: "Email", company: "Company",
@@ -41,6 +44,34 @@ export default function ChatWidget({ locale }: { locale: Locale }) {
   const boxRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const t0 = useRef(Date.now());
+  const [ready, setReady] = useState(false);
+  const [teaser, setTeaser] = useState(false);
+
+  // Nút chat hiện nhẹ nhàng sau ~1,5 giây
+  useEffect(() => { const id = setTimeout(() => setReady(true), 1500); return () => clearTimeout(id); }, []);
+
+  // Lời chào nhỏ: hiện một lần mỗi phiên, sau 8 giây hoặc khi khách đã cuộn qua ~1/3 trang; tự ẩn sau 14 giây
+  useEffect(() => {
+    if (open || !ready) return;
+    try { if (sessionStorage.getItem(TK) === "1") return; } catch { /* bỏ qua */ }
+    let done = false;
+    let hide: ReturnType<typeof setTimeout> | undefined;
+    const off = () => window.removeEventListener("scroll", onScroll);
+    const show = () => {
+      if (done) return;
+      done = true; off();
+      setTeaser(true);
+      try { sessionStorage.setItem(TK, "1"); } catch { /* bỏ qua */ }
+      hide = setTimeout(() => setTeaser(false), 14000);
+    };
+    const onScroll = () => {
+      const h = document.documentElement;
+      if (window.scrollY > (h.scrollHeight - h.clientHeight) * 0.35) show();
+    };
+    const timer = setTimeout(show, 8000);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { clearTimeout(timer); if (hide) clearTimeout(hide); off(); };
+  }, [open, ready]);
 
   useEffect(() => {
     try {
@@ -104,10 +135,23 @@ export default function ChatWidget({ locale }: { locale: Locale }) {
 
   return (
     <>
-      {!open && (
-        <button type="button" className="chat-fab" onClick={() => setOpen(true)} aria-label={s.open}>
-          <span className="material-symbols-outlined" aria-hidden="true">chat</span>
-        </button>
+      {!open && ready && (
+        <div className="chat-dock">
+          {teaser && (
+            <div className="chat-teaser" role="status">
+              <button type="button" className="chat-teaser-main" onClick={() => { setTeaser(false); setOpen(true); }}>
+                <span className="chat-teaser-ava material-symbols-outlined" aria-hidden="true">smart_toy</span>
+                <span>{s.teaser}</span>
+              </button>
+              <button type="button" className="chat-teaser-x" onClick={() => setTeaser(false)} aria-label={s.close}>
+                <span className="material-symbols-outlined" aria-hidden="true">close</span>
+              </button>
+            </div>
+          )}
+          <button type="button" className={`chat-fab${teaser ? " ping" : ""}`} onClick={() => { setTeaser(false); setOpen(true); }} aria-label={s.open}>
+            <span className="material-symbols-outlined" aria-hidden="true">chat</span>
+          </button>
+        </div>
       )}
       {open && (
         <section className="chat-panel" role="dialog" aria-label={s.title}>

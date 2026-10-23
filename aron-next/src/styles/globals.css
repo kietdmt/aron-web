@@ -497,7 +497,7 @@ a.more, .more, .feature .more { color: var(--plum-d); }
 .hero-home h1 .oracle-red { color: #f80000 !important; font-weight: 300 !important; }
 
 /* v3.5: ARON Assistant — khung chat nổi */
-.chat-fab { position: fixed; right: 22px; bottom: 22px; z-index: 70; width: 60px; height: 60px; border-radius: 50%; border: 0; cursor: pointer; color: #2b1d2a; background-image: linear-gradient(135deg, #f3e3a6, #f4c3a0 55%, #f0a092); box-shadow: 0 14px 34px rgba(10, 24, 34, .38); display: grid; place-items: center; transition: transform .2s; }
+.chat-fab { position: relative; width: 60px; height: 60px; border-radius: 50%; border: 0; cursor: pointer; color: #2b1d2a; background-image: linear-gradient(135deg, #f3e3a6, #f4c3a0 55%, #f0a092); box-shadow: 0 14px 34px rgba(10, 24, 34, .38); display: grid; place-items: center; transition: transform .2s; }
 .chat-fab:hover { transform: translateY(-2px) scale(1.05); }
 .chat-fab .material-symbols-outlined { font-size: 28px; }
 .chat-panel { position: fixed; right: 22px; bottom: 22px; z-index: 70; width: min(380px, calc(100vw - 24px)); height: min(640px, calc(100vh - 44px)); display: flex; flex-direction: column; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 80px rgba(8, 20, 30, .42); border: 1px solid #e6dfcf; font-size: .95rem; }
@@ -535,3 +535,17 @@ a.more, .more, .feature .more { color: var(--plum-d); }
 @keyframes chatDot { 0%, 80%, 100% { transform: translateY(0); opacity: .5; } 40% { transform: translateY(-5px); opacity: 1; } }
 @media (max-width: 520px) { .chat-panel { right: 0; bottom: 0; width: 100vw; height: 100dvh; border-radius: 0; } }
 @media (prefers-reduced-motion: reduce) { .chat-msg, .chat-typing i, .chat-fab { animation: none; transition: none; } }
+
+/* v3.6: nút chat hiện nhẹ nhàng + lời chào nhỏ */
+.chat-dock { position: fixed; right: 22px; bottom: 22px; z-index: 70; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; animation: dockIn .6s cubic-bezier(.2, .8, .2, 1) both; }
+.chat-teaser { display: flex; align-items: stretch; max-width: min(300px, calc(100vw - 44px)); background: #fff; color: #1d2b34; border-radius: 18px 18px 6px 18px; border: 1px solid #ece5d4; box-shadow: 0 16px 40px rgba(10, 24, 34, .28); animation: teaserIn .5s cubic-bezier(.2, .8, .2, 1) both; }
+.chat-teaser-main { display: flex; gap: 10px; align-items: center; text-align: left; background: none; border: 0; padding: 12px 6px 12px 12px; font: inherit; font-size: .9rem; line-height: 1.45; color: inherit; cursor: pointer; }
+.chat-teaser-ava { flex: none; width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; font-size: 20px; background: #1a2f3f; color: #f3e3a6; }
+.chat-teaser-x { background: none; border: 0; color: #8a949b; cursor: pointer; padding: 6px 8px; align-self: flex-start; border-radius: 0 16px 0 0; display: grid; }
+.chat-teaser-x:hover { color: #1d2b34; }
+.chat-teaser-x .material-symbols-outlined { font-size: 18px; }
+.chat-fab.ping::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid #f0a092; animation: chatPing 1.8s ease-out 3; pointer-events: none; }
+@keyframes dockIn { from { opacity: 0; transform: translateY(16px) scale(.92); } to { opacity: 1; transform: none; } }
+@keyframes teaserIn { from { opacity: 0; transform: translateY(10px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes chatPing { from { transform: scale(1); opacity: .8; } to { transform: scale(1.7); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .chat-dock, .chat-teaser, .chat-fab.ping::after { animation: none; } }
