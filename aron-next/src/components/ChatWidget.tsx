@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { submitContact } from "@/app/actions/forms";
 import type { Locale } from "@/lib/i18n";
 
@@ -46,6 +47,9 @@ export default function ChatWidget({ locale }: { locale: Locale }) {
   const t0 = useRef(Date.now());
   const [ready, setReady] = useState(false);
   const [teaser, setTeaser] = useState(false);
+  const [auto, setAuto] = useState(false); // khung tự mở: không giành con trỏ nhập liệu
+  const path = usePathname() || "";
+  const formPage = /contact-us|apply|lien-he/.test(path); // trang đã có form: không tự mở
 
   // Nút chat hiện nhẹ nhàng sau ~1,5 giây
   useEffect(() => { const id = setTimeout(() => setReady(true), 1500); return () => clearTimeout(id); }, []);
@@ -60,18 +64,21 @@ export default function ChatWidget({ locale }: { locale: Locale }) {
     const show = () => {
       if (done) return;
       done = true; off();
-      setTeaser(true);
       try { sessionStorage.setItem(TK, "1"); } catch { /* bỏ qua */ }
+      // Máy tính: tự mở khung chat (nhẹ nhàng, không giành con trỏ). Điện thoại / trang có form: chỉ hiện lời chào nhỏ.
+      const desktop = window.matchMedia("(min-width: 768px)").matches;
+      if (desktop && !formPage) { setAuto(true); setOpen(true); return; }
+      setTeaser(true);
       hide = setTimeout(() => setTeaser(false), 14000);
     };
     const onScroll = () => {
       const h = document.documentElement;
-      if (window.scrollY > (h.scrollHeight - h.clientHeight) * 0.35) show();
+      if (window.scrollY > (h.scrollHeight - h.clientHeight) * 0.3) show();
     };
-    const timer = setTimeout(show, 8000);
+    const timer = setTimeout(show, 12000);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => { clearTimeout(timer); if (hide) clearTimeout(hide); off(); };
-  }, [open, ready]);
+  }, [open, ready, formPage]);
 
   useEffect(() => {
     try {
@@ -83,10 +90,10 @@ export default function ChatWidget({ locale }: { locale: Locale }) {
     try { sessionStorage.setItem(KEY, JSON.stringify(msgs.slice(-30))); } catch { /* bỏ qua */ }
     boxRef.current?.scrollTo({ top: boxRef.current.scrollHeight });
   }, [msgs, busy, lead]);
-  useEffect(() => { if (open) inputRef.current?.focus(); }, [open]);
+  useEffect(() => { if (open && !auto) inputRef.current?.focus(); }, [open, auto]);
   useEffect(() => {
     if (!open) return;
-    const h = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    const h = (e: KeyboardEvent) => { if (e.key === "Escape") { setOpen(false); setAuto(false); } };
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
   }, [open]);
@@ -158,7 +165,7 @@ export default function ChatWidget({ locale }: { locale: Locale }) {
           <header className="chat-head">
             <span className="chat-ava material-symbols-outlined" aria-hidden="true">smart_toy</span>
             <div><strong>{s.title}</strong><small><i aria-hidden="true" /> {s.online}</small></div>
-            <button type="button" className="chat-x" onClick={() => setOpen(false)} aria-label={s.close}>
+            <button type="button" className="chat-x" onClick={() => { setOpen(false); setAuto(false); }} aria-label={s.close}>
               <span className="material-symbols-outlined" aria-hidden="true">close</span>
             </button>
           </header>

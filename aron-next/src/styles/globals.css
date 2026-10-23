@@ -549,3 +549,8 @@ a.more, .more, .feature .more { color: var(--plum-d); }
 @keyframes teaserIn { from { opacity: 0; transform: translateY(10px) scale(.96); } to { opacity: 1; transform: none; } }
 @keyframes chatPing { from { transform: scale(1); opacity: .8; } to { transform: scale(1.7); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .chat-dock, .chat-teaser, .chat-fab.ping::after { animation: none; } }
+
+/* v3.7: khung chat tự mở — hiện mượt, không che nội dung chính */
+.chat-panel { animation: panelIn .55s cubic-bezier(.2, .8, .2, 1) both; transform-origin: bottom right; }
+@keyframes panelIn { from { opacity: 0; transform: translateY(22px) scale(.94); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .chat-panel { animation: none; } }
