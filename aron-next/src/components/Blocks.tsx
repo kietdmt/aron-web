@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import CountUp from "./CountUp";
 import { localizeHref, type Locale } from "@/lib/i18n";
 import type { Block } from "@/lib/types";
 import { getClients } from "@/lib/content";
@@ -238,7 +239,7 @@ export default function Blocks({ blocks, locale, jobSlug }: { blocks: Block[]; l
                   <ul className="stats">
                     {b.items.map((s, k) => (
                       <li key={k}>
-                        <strong>{statValue(s.value)}{s.suffix}</strong>
+                        <strong><CountUp value={statValue(s.value)} />{s.suffix}</strong>
                         <span>{s.label}</span>
                       </li>
                     ))}

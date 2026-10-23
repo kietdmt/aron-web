@@ -566,3 +566,6 @@ a.more, .more, .feature .more { color: var(--plum-d); }
   .nav .mega h4, .nav .mega strong, .nav .mega-links h4 { color: #f3e3a6 !important; }
   .nav .mega a small, .nav .mega a span { color: #9fb0b8 !important; }
 }
+
+/* v3.9: số liệu nổi bật — chữ số cùng độ rộng, không giật khi chạy số */
+.stats strong, .count-up { font-variant-numeric: tabular-nums; }
