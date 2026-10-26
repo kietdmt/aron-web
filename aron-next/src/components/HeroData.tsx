@@ -12,6 +12,7 @@ function startData(canvas: HTMLCanvasElement, host: HTMLElement, opts: { reduce:
   let W = 0, H = 0, dpr = 1, V: number[] = [0, 0];
   let lanes: any[] = [], cols: any[] = [], stars: any[] = [];
   let tx = 0, ty = 0, ox = 0, oy = 0, t = 0;
+  let mx = -9999, my = -9999, tmx = -9999, tmy = -9999, mact = 0, tact = 0;
   const build = () => {
     const small = W < 700;
     V = [W * (small ? .72 : W < 1100 ? .68 : .6), H * .72];
@@ -29,8 +30,8 @@ function startData(canvas: HTMLCanvasElement, host: HTMLElement, opts: { reduce:
     stars = Array.from({ length: small ? 70 : 150 }, () => ({ x: rnd() * W, y: rnd() * H * .75, s: .3 + rnd() * rnd() * 1.6, a: .2 + rnd() * .6, tw: rnd() * 6 }));
   };
   const size = () => { const r = host.getBoundingClientRect(); W = Math.max(1, r.width); H = Math.max(1, r.height); dpr = Math.min(window.devicePixelRatio || 1, 1.5); canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); build(); };
-  const onMove = (e: PointerEvent) => { const r = host.getBoundingClientRect(); tx = ((e.clientX - r.left) / W - .5); ty = ((e.clientY - r.top) / H - .5); };
-  const onLeave = () => { tx = 0; ty = 0; };
+  const onMove = (e: PointerEvent) => { const r = host.getBoundingClientRect(); tx = ((e.clientX - r.left) / W - .5); ty = ((e.clientY - r.top) / H - .5); tmx = e.clientX - r.left; tmy = e.clientY - r.top; if (tact === 0) { mx = tmx; my = tmy; } tact = 1; };
+  const onLeave = () => { tx = 0; ty = 0; tact = 0; };
   const lanePt = (L: any, p: number, vx: number, vy: number): number[] => { const x1 = vx + (L.xi - vx) * (1 - L.bend) , y1 = vy + (L.yi - vy) * L.bend; const u = 1 - p; return [u * u * vx + 2 * u * p * x1 + p * p * L.xi, u * u * vy + 2 * u * p * y1 + p * p * L.yi]; };
   // ---- bảng biểu đồ kiểu AI (hệ toạ độ 100 x 66)
   const NAMES = ["NEURAL LOAD", "REVENUE AI", "FORECAST", "SEGMENTS", "GROWTH KPI", "SKILL RADAR", "LIVE HEATMAP"];
@@ -80,10 +81,10 @@ function startData(canvas: HTMLCanvasElement, host: HTMLElement, opts: { reduce:
   let last = 0, raf = 0, vis = true;
   const frame = (now: number) => {
     raf = 0; const dt = Math.min(.05, (now - last) / 1000 || .016) * .6; last = now; if (!reduce) t += dt;
-    ox += (tx - ox) * Math.min(1, dt * .7); oy += (ty - oy) * Math.min(1, dt * .7);
+    ox += (tx - ox) * Math.min(1, dt * 2.4); oy += (ty - oy) * Math.min(1, dt * 2.4); mx += (tmx - mx) * Math.min(1, dt * 5); my += (tmy - my) * Math.min(1, dt * 5); mact += (tact - mact) * Math.min(1, dt * 3);
     ctx.globalCompositeOperation = "source-over"; ctx.globalAlpha = 1; ctx.clearRect(0, 0, W, H);
     let g = ctx.createLinearGradient(0, 0, W, H); g.addColorStop(0, "#112230"); g.addColorStop(1, "#1a3541"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-    const vx = V[0] - ox * 22, vy = V[1] - oy * 12;
+    const vx = V[0] - ox * 80, vy = V[1] - oy * 40;
     g = ctx.createRadialGradient(vx, vy, 0, vx, vy, W * .55); g.addColorStop(0, "rgba(70,130,135,.5)"); g.addColorStop(.5, "rgba(45,90,100,.22)"); g.addColorStop(1, "rgba(30,60,75,0)"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
     ctx.globalCompositeOperation = "lighter"; for (let k = 0; k < 3; k++) { const ph = ((t * .09 + k / 3) % 1); ctx.strokeStyle = rgba(TEAL, .22 * (1 - ph)); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.ellipse(vx, vy, 40 + ph * W * .7, 12 + ph * H * .45, 0, 0, 6.283); ctx.stroke(); } ctx.globalCompositeOperation = "source-over";
     for (const s of stars) { ctx.fillStyle = rgba(CREAM, s.a * (.6 + .4 * Math.sin(t + s.tw))); ctx.fillRect(s.x, s.y, s.s, s.s); }
@@ -101,7 +102,7 @@ function startData(canvas: HTMLCanvasElement, host: HTMLElement, opts: { reduce:
     ctx.globalCompositeOperation = "source-over";
     const wallVy = vy; 
     for (const c of cols) {
-      const parx = -ox * 30 * c.s, pary = -oy * 16 * c.s + Math.sin(t * .8 + c.j * .9) * 5 * c.s;
+      const parx = -ox * 90 * c.s, pary = -oy * 48 * c.s + Math.sin(t * .8 + c.j * .9) * 5 * c.s;
       const hTot = H * .62 * c.s, yc = wallVy + (H * .36 - wallVy) * c.s * .9 + pary; // trung tâm cột
       const xr = c.xr + parx, xl = xr - c.w;
       const nextS = c.s * .845, hFar = H * .62 * nextS, ycF = wallVy + (H * .36 - wallVy) * nextS * .9 + pary;
@@ -115,10 +116,13 @@ function startData(canvas: HTMLCanvasElement, host: HTMLElement, opts: { reduce:
         ctx.setTransform(dpr * (xr - xl) / 100, dpr * (topR - topL) / 100, 0, dpr * hAvg / 66, dpr * xl, dpr * topL);
         panel((c.j * 2 + r * 3 + (c.j % 2)) % 7, t, c.seed + r * 1.7);
         ctx.restore();
-        const bp = .5 + .5 * Math.sin(t * 1.1 + c.j * .8 + r * 1.9); ctx.beginPath(); ctx.moveTo(xl, topL); ctx.lineTo(xr, topR); ctx.lineTo(xr, botR); ctx.lineTo(xl, botL); ctx.closePath(); ctx.strokeStyle = rgba(TEAL, .12 + .2 * bp); ctx.lineWidth = 4; ctx.stroke(); ctx.strokeStyle = rgba(bp > .8 ? CREAM : TEAL, .55 + .4 * bp); ctx.lineWidth = 1; ctx.stroke();
+        const hb = mact * Math.exp(-((Math.hypot((xl + xr) / 2 - mx, (topR + botR + topL + botL) / 4 - my) / (H * .3)) ** 2)); const bp = Math.min(1, .5 + .5 * Math.sin(t * 1.1 + c.j * .8 + r * 1.9) + hb); ctx.beginPath(); ctx.moveTo(xl, topL); ctx.lineTo(xr, topR); ctx.lineTo(xr, botR); ctx.lineTo(xl, botL); ctx.closePath(); if (hb > .02) { ctx.fillStyle = rgba(PEACH, .2 * hb); ctx.fill(); } ctx.strokeStyle = rgba(hb > .4 ? PEACH : TEAL, .12 + .2 * bp); ctx.lineWidth = 4; ctx.stroke(); ctx.strokeStyle = rgba(bp > .8 ? CREAM : TEAL, .55 + .4 * bp); ctx.lineWidth = 1; ctx.stroke();
       }
     }
     ctx.globalCompositeOperation = "lighter";
+    if (mact > .02) { const cg = ctx.createRadialGradient(mx, my, 0, mx, my, 160); cg.addColorStop(0, rgba(PEACH, .32 * mact)); cg.addColorStop(.4, rgba(TEAL, .14 * mact)); cg.addColorStop(1, rgba(TEAL, 0)); ctx.fillStyle = cg; ctx.beginPath(); ctx.arc(mx, my, 160, 0, 6.283); ctx.fill();
+      for (let k = 0; k < 3; k++) { const ph = (t * .5 + k / 3) % 1; ctx.strokeStyle = rgba(PEACH, .45 * (1 - ph) * mact); ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(mx, my, 8 + ph * 50, 0, 6.283); ctx.stroke(); }
+      ctx.strokeStyle = rgba(PEACH, .5 * mact); ctx.lineWidth = 1.2; ctx.setLineDash([6, 5]); ctx.lineDashOffset = -t * 30; ctx.beginPath(); ctx.moveTo(mx, my); ctx.lineTo(vx, vy); ctx.stroke(); ctx.setLineDash([]); }
     g = ctx.createRadialGradient(vx, vy, 0, vx, vy, 90); g.addColorStop(0, "rgba(255,240,215,.55)"); g.addColorStop(1, "rgba(240,180,138,0)"); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(vx, vy, 90, 0, 6.283); ctx.fill();
     ctx.globalCompositeOperation = "source-over";
     if (!reduce && vis) raf = requestAnimationFrame(frame);

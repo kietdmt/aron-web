@@ -11,6 +11,7 @@ function startAI(canvas: HTMLCanvasElement, host: HTMLElement, opts: { reduce: b
   let seed = 7; const rnd = () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
   const rgba = (c: number[], a: number) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
   let W = 0, H = 0, dpr = 1, t = 0, tx = 0, ty = 0, ox = 0, oy = 0, small = false;
+  let mx = -9999, my = -9999, tmx = -9999, tmy = -9999, mact = 0, tact = 0;
   let nodes: HNode[] = [];
   const links: number[][] = [[0, 1], [1, 2], [2, 3], [2, 5], [5, 4], [5, 6]];
   let bokeh: number[][] = [], dust: number[][] = [], brain: number[][] = [], edges: number[][] = [], circ: number[][][] = [], city: number[][] = [];
@@ -27,8 +28,8 @@ function startAI(canvas: HTMLCanvasElement, host: HTMLElement, opts: { reduce: b
     circ = Array.from({ length: 26 }, () => { const a = rnd() * 6.283; const pts: number[][] = [[Math.cos(a) * .35, Math.sin(a) * .35]]; let ang = a; for (let k = 0; k < 3; k++) { ang += (rnd() < .5 ? -1 : 1) * (Math.PI / 4) * (rnd() < .5 ? 1 : 2); const l = .1 + rnd() * .18; const q = pts[pts.length - 1]; pts.push([q[0] + Math.cos(ang) * l, q[1] + Math.sin(ang) * l]); } return pts; });
   };
   const size = () => { const r = host.getBoundingClientRect(); W = Math.max(1, r.width); H = Math.max(1, r.height); dpr = Math.min(window.devicePixelRatio || 1, 1.5); canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); build(); };
-  const onMove = (e: PointerEvent) => { const r = host.getBoundingClientRect(); tx = (e.clientX - r.left) / W - .5; ty = (e.clientY - r.top) / H - .5; };
-  const onLeave = () => { tx = 0; ty = 0; };
+  const onMove = (e: PointerEvent) => { const r = host.getBoundingClientRect(); tx = (e.clientX - r.left) / W - .5; ty = (e.clientY - r.top) / H - .5; tmx = e.clientX - r.left; tmy = e.clientY - r.top; if (tact === 0) { mx = tmx; my = tmy; } tact = 1; };
+  const onLeave = () => { tx = 0; ty = 0; tact = 0; };
   const arc = (x: number, y: number, r: number, a0: number, a1: number, c: number[], al: number, lw: number) => { ctx.strokeStyle = rgba(c, al); ctx.lineWidth = lw; ctx.beginPath(); ctx.arc(x, y, r, a0, a1); ctx.stroke(); };
   const glowArc = (x: number, y: number, r: number, a0: number, a1: number, c: number[], al: number, lw: number) => { arc(x, y, r, a0, a1, c, al * .22, lw * 3.6); arc(x, y, r, a0, a1, c, al, lw); };
   const ticks = (r0: number, r1: number, n: number, rot: number, c: number[], al: number) => { ctx.strokeStyle = rgba(c, al); ctx.lineWidth = .8; ctx.beginPath(); for (let i = 0; i < n; i++) { const a = rot + i / n * 6.283, cs = Math.cos(a), sn = Math.sin(a); ctx.moveTo(cs * r0, sn * r0); ctx.lineTo(cs * r1, sn * r1); } ctx.stroke(); };
@@ -65,7 +66,7 @@ function startAI(canvas: HTMLCanvasElement, host: HTMLElement, opts: { reduce: b
   };
   const hud = (n: HNode, tt: number, i: number) => {
     const { r } = n; const s = (i % 2 ? 1 : -1), A = ACC[i];
-    const tilt = .26 * Math.sin(tt * .35 + n.ph) + oy * .5, rotA = -.35 + ox * .4 + .2 * Math.sin(tt * .2 + i), k = Math.cos(tilt);
+    const tilt = .26 * Math.sin(tt * .35 + n.ph) + oy * 1.3, rotA = -.35 + ox * 1.1 + .2 * Math.sin(tt * .2 + i), k = Math.cos(tilt);
     // đổ bóng mặt sàn
     ctx.save(); ctx.translate(n.x, n.y + r * 1.55); ctx.scale(1, .16); const sh = ctx.createRadialGradient(0, 0, 0, 0, 0, r * 1.2); sh.addColorStop(0, "rgba(6,16,24,.45)"); sh.addColorStop(1, "rgba(6,16,24,0)"); ctx.fillStyle = sh; ctx.beginPath(); ctx.arc(0, 0, r * 1.2, 0, 6.283); ctx.fill(); ctx.restore();
     ctx.save(); ctx.translate(n.x, n.y);
@@ -90,11 +91,11 @@ function startAI(canvas: HTMLCanvasElement, host: HTMLElement, opts: { reduce: b
     ctx.globalCompositeOperation = "lighter"; const hl = ctx.createRadialGradient(-r * .35, -r * .45, 0, -r * .35, -r * .45, r * .35); hl.addColorStop(0, "rgba(255,248,238,.22)"); hl.addColorStop(1, "rgba(255,248,238,0)"); ctx.fillStyle = hl; ctx.beginPath(); ctx.arc(-r * .35, -r * .45, r * .35, 0, 6.283); ctx.fill();
     ctx.restore();
   };
-  const pos = (n: HNode, tt: number) => ({ ...n, x: n.x - ox * 30 * n.z, y: n.y - oy * 16 * n.z + Math.sin(tt * .5 + n.ph) * 6 * n.z });
+  const pos = (n: HNode, tt: number) => { let x = n.x - ox * 95 * n.z, y = n.y - oy * 55 * n.z + Math.sin(tt * .5 + n.ph) * 6 * n.z; const d = Math.hypot(x - mx, y - my), b = mact * Math.exp(-((d / (n.r * 2.6)) ** 2)); x += (mx - x) * .07 * b; y += (my - y) * .07 * b; return { ...n, x, y, r: n.r * (1 + .2 * b) }; };
   let last = 0, raf = 0, vis = true;
   const frame = (now: number) => {
     raf = 0; const dt = Math.min(.05, (now - last) / 1000 || .016) * .7; last = now; if (!reduce) t += dt;
-    ox += (tx - ox) * Math.min(1, dt * .8); oy += (ty - oy) * Math.min(1, dt * .8);
+    ox += (tx - ox) * Math.min(1, dt * 2.4); oy += (ty - oy) * Math.min(1, dt * 2.4); mx += (tmx - mx) * Math.min(1, dt * 5); my += (tmy - my) * Math.min(1, dt * 5); mact += (tact - mact) * Math.min(1, dt * 3);
     ctx.globalCompositeOperation = "source-over"; ctx.globalAlpha = 1; ctx.clearRect(0, 0, W, H);
     let g = ctx.createLinearGradient(0, 0, W, H); g.addColorStop(0, "#142530"); g.addColorStop(.6, "#182b38"); g.addColorStop(1, "#1f3845"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
     g = ctx.createRadialGradient(W * .78, H * .5, 0, W * .78, H * .5, W * .5); g.addColorStop(0, "rgba(58,107,107,.45)"); g.addColorStop(1, "rgba(45,81,87,0)"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
@@ -111,6 +112,9 @@ function startAI(canvas: HTMLCanvasElement, host: HTMLElement, opts: { reduce: b
     links.forEach((l, k) => { const a = P[l[0]], b = P[l[1]]; ctx.strokeStyle = rgba(TE2, .14); ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); ctx.strokeStyle = rgba(WH, .6); ctx.lineWidth = 1; ctx.stroke();
       const mp = (.42 + (k % 3) * .06); sphere(a.x + (b.x - a.x) * mp, a.y + (b.y - a.y) * mp, 4.5, ACC[k % 7], 1);
       ctx.save(); ctx.globalCompositeOperation = "lighter"; for (let j = 0; j < 2; j++) { const q = ((t * .12 + k * .23 + j * .5) % 1); const px = a.x + (b.x - a.x) * q, py = a.y + (b.y - a.y) * q; const gg = ctx.createRadialGradient(px, py, 0, px, py, 10); gg.addColorStop(0, rgba(j ? PE : WH, .95)); gg.addColorStop(1, rgba(TE, 0)); ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(px, py, 10, 0, 6.283); ctx.fill(); } ctx.restore(); });
+    if (mact > .02) { ctx.save(); ctx.globalCompositeOperation = "lighter"; const cg = ctx.createRadialGradient(mx, my, 0, mx, my, 150); cg.addColorStop(0, rgba(PE, .3 * mact)); cg.addColorStop(.4, rgba(TE, .14 * mact)); cg.addColorStop(1, rgba(TE, 0)); ctx.fillStyle = cg; ctx.beginPath(); ctx.arc(mx, my, 150, 0, 6.283); ctx.fill();
+      const near = P.map((n) => ({ n, d: Math.hypot(n.x - mx, n.y - my) })).sort((a, b) => a.d - b.d).slice(0, 3); near.forEach((q, k) => { ctx.strokeStyle = rgba(k ? TE2 : PE, (.55 - k * .15) * mact); ctx.lineWidth = 1.2; ctx.setLineDash([6, 5]); ctx.lineDashOffset = -t * 30; ctx.beginPath(); ctx.moveTo(mx, my); ctx.lineTo(q.n.x, q.n.y); ctx.stroke(); }); ctx.setLineDash([]);
+      for (let k = 0; k < 3; k++) { const ph = (t * .5 + k / 3) % 1; arc(mx, my, 8 + ph * 46, 0, 6.283, PE, .45 * (1 - ph) * mact, 1.4); } ctx.restore(); }
     P.forEach((n, i) => hud(n, t, i));
     P.forEach((n, i) => orbit(n, t, i, true));
     ctx.save(); ctx.globalCompositeOperation = "lighter"; const e = P[4]; for (let k = 0; k < 2; k++) { const ph = (t * .1 + k * .5) % 1; arc(e.x, e.y, e.r * (1.25 + ph * .7), 0, 6.283, PE, .3 * (1 - ph), 1.5); } ctx.restore();
