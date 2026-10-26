@@ -32,7 +32,7 @@ export default async function Page({ params }: P) {
   if (!isLocale(locale)) notFound();
   const path = slugFromSegments(slug);
   const page = await getPage(path, locale);
-  if (page) return <Blocks blocks={page.blocks} locale={locale} />;
+  if (page) return <Blocks blocks={page.blocks} locale={locale} heroFx={path === "/clients/" ? "data" : path === "/about-us/" ? "ai" : undefined} />;
   const job = await getJob(path, locale);
   if (job) return <JobDetail job={job} locale={locale} />;
   notFound();

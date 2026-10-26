@@ -730,3 +730,21 @@ html.v4 .orbit-detail, html.v4 .orbit-detail h3, html.v4 .orbit-detail p { color
 }
 @keyframes decoDrift { 0%, 100% { translate: 0 0; } 50% { translate: 0 -14px; } }
 html.v4 .hero-home { background-repeat: no-repeat; background-size: cover; background-position: center bottom; background-color: #182b38; }
+
+/* v4.1 — banner trang con: dải ngân hà dữ liệu chuyển động */
+.hero-swirl { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.hero-inner { min-height: clamp(280px, 30vw, 400px); display: flex; align-items: center; background-size: cover; background-position: center; background-repeat: no-repeat; }
+.hero-inner > .container { position: relative; z-index: 1; width: min(1180px, 100% - 40px); }
+.hero-inner h1 { max-width: 20ch; text-shadow: 0 2px 24px rgba(4, 12, 18, .5); }
+.hero-inner .lead { max-width: 56ch; }
+.hero-inner { background-color: #142530; }
+.hero-inner::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(90deg, rgba(24, 43, 56, .9) 0%, rgba(24, 43, 56, .5) 30%, rgba(24, 43, 56, 0) 58%); }
+.hero-swirl { z-index: 0; }
+
+html.v4 .hero-data::before { background: linear-gradient(90deg, rgba(20,37,48,.96) 0%, rgba(20,37,48,.88) 45%, rgba(20,37,48,.35) 75%, rgba(20,37,48,0) 100%); }
+html.v4 .hero-data .lead { text-shadow: 0 1px 14px rgba(8,18,26,.9); }
+@media (max-width: 900px) { html.v4 .hero-data::before { background: linear-gradient(180deg, rgba(20,37,48,.92) 0%, rgba(20,37,48,.82) 100%); } }
+
+html.v4 .hero-ai::before { background: linear-gradient(90deg, rgba(20,37,48,.95) 0%, rgba(20,37,48,.85) 42%, rgba(20,37,48,.25) 70%, rgba(20,37,48,0) 100%); }
+html.v4 .hero-ai .lead { text-shadow: 0 1px 14px rgba(8,18,26,.9); }
+@media (max-width: 900px) { html.v4 .hero-ai::before { background: linear-gradient(180deg, rgba(20,37,48,.9) 0%, rgba(20,37,48,.8) 100%); } }

@@ -2,6 +2,9 @@
 import Link from "next/link";
 import CountUp from "./CountUp";
 import HeroField from "./HeroField";
+import HeroSwirl from "./HeroSwirl";
+import HeroData from "./HeroData";
+import HeroAI from "./HeroAI";
 import { localizeHref, type Locale } from "@/lib/i18n";
 import type { Block } from "@/lib/types";
 import { getClients } from "@/lib/content";
@@ -56,7 +59,7 @@ async function Clients({ locale, title }: { locale: Locale; title: string }) {
   );
 }
 
-export default function Blocks({ blocks, locale, jobSlug }: { blocks: Block[]; locale: Locale; jobSlug?: string }) {
+export default function Blocks({ blocks, locale, jobSlug, heroFx }: { blocks: Block[]; locale: Locale; jobSlug?: string; heroFx?: "galaxy" | "data" | "ai" }) {
   const L = (h: string) => localizeHref(locale, h);
   return (
     <>
@@ -87,11 +90,12 @@ export default function Blocks({ blocks, locale, jobSlug }: { blocks: Block[]; l
                 </section>
               );
             return (
-              <section key={i} className="hero" style={{ backgroundImage: heroBg(b.image) }}>
+              <section key={i} className={`hero hero-inner${heroFx === "data" ? " hero-data" : heroFx === "ai" ? " hero-ai" : ""}`} style={{ backgroundImage: heroBg(b.image.endsWith("bg-net.svg") ? "/img/art/bg-inner.svg" : b.image) }}>
+                {heroFx === "data" ? <HeroData /> : heroFx === "ai" ? <HeroAI /> : <HeroSwirl />}
                 <div className="container">
                   <h1>{b.title}</h1>
                   {b.lead && <p className="lead">{b.lead}</p>}
-                  {b.cta?.label && <Link className="btn" href={L(b.cta.href)}>{b.cta.label}</Link>}
+                  {b.cta?.label && <Link className="btn" href={L(b.cta.href)} {...(/^https?:\/\//.test(b.cta.href) ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{b.cta.label}</Link>}
                 </div>
               </section>
             );
