@@ -16,9 +16,9 @@ function startAI(canvas: HTMLCanvasElement, host: HTMLElement, opts: { reduce: b
   let bokeh: number[][] = [], dust: number[][] = [], brain: number[][] = [], edges: number[][] = [], circ: number[][][] = [], city: number[][] = [];
   const build = () => {
     small = W < 760;
-    const L = small ? .1 : .56, S = small ? .9 : .44;
+    const Lpx = small ? W * .1 : Math.min(Math.max(W * .56, 700), W * .8), Spx = W - Lpx, fz = small ? .8 : Math.max(.6, Math.min(1, Spx / 634));
     const spec: [number, number, number, number][] = [[.12, .36, .30, 0], [.34, .60, .12, 1], [.52, .52, .17, 2], [.80, .20, .15, 3], [.9, .70, .30, 4], [.60, .86, .13, 5], [.06, .88, .09, 6]];
-    nodes = spec.map(([fx, fy, r, kind], i) => ({ x: (L + fx * S) * W, y: fy * H, r: r * H * (small ? .8 : 1), kind, z: .5 + (i % 3) * .35, ph: rnd() * 6 }));
+    nodes = spec.map(([fx, fy, r, kind], i) => ({ x: Lpx + fx * Spx, y: fy * H, r: r * H * fz, kind, z: .5 + (i % 3) * .35, ph: rnd() * 6 }));
     bokeh = Array.from({ length: 60 }, () => [rnd() * W, H * (.6 + rnd() * .4), 2 + rnd() * 10, rnd() * 6, .06 + rnd() * .2, rnd() < .35 ? 1 : 0]);
     dust = Array.from({ length: 110 }, () => [rnd() * W, rnd() * H, .5 + rnd() * 1.8, rnd() * 6, .3 + rnd() * 1.1]);
     city = []; let x = -20; while (x < W + 20) { const w = 18 + rnd() * 44, h = H * (.1 + rnd() * .3); city.push([x, w, h]); x += w + 2 + rnd() * 6; }

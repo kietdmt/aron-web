@@ -25,7 +25,7 @@ function startData(canvas: HTMLCanvasElement, host: HTMLElement, opts: { reduce:
     }
     cols = []; const Pw = W * (small ? .13 : W < 1100 ? .085 : .105); let x = W * 1.02; let s = 1;
     const n = small ? 6 : 9;
-    for (let j = 0; j < n; j++) { const w = Pw * s; cols.push({ xr: x, w, s, j, seed: rnd() * 10 }); x -= w * .985; s *= .845; }
+    for (let j = 0; j < n; j++) { const w = Pw * s; if (!small && x - w < Math.max(W * .58, 700)) break; cols.push({ xr: x, w, s, j, seed: rnd() * 10 }); x -= w * .985; s *= .845; }
     stars = Array.from({ length: small ? 70 : 150 }, () => ({ x: rnd() * W, y: rnd() * H * .75, s: .3 + rnd() * rnd() * 1.6, a: .2 + rnd() * .6, tw: rnd() * 6 }));
   };
   const size = () => { const r = host.getBoundingClientRect(); W = Math.max(1, r.width); H = Math.max(1, r.height); dpr = Math.min(window.devicePixelRatio || 1, 1.5); canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); build(); };
