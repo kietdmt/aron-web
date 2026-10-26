@@ -13,7 +13,7 @@ type Leaf = {
 type Dust = { x: number; y: number; vx: number; vy: number; life: number; max: number; r: number };
 
 const PALETTE: [string, number][] = [
-  ["95,185,181", 0.3], ["146,190,195", 0.2], ["230,142,133", 0.17], ["224,208,153", 0.14], ["158,129,160", 0.1], ["177,169,146", 0.09],
+  ["224,122,95", 0.24], ["240,180,138", 0.22], ["243,220,192", 0.18], ["143,184,196", 0.18], ["208,158,96", 0.1], ["165,139,196", 0.08],
 ];
 function rng(seed: number) { return () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 const pick = (r: number) => { let a = 0; for (const [c, w] of PALETTE) { a += w; if (r <= a) return c; } return PALETTE[0][0]; };

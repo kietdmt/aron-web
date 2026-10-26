@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Source_Serif_4 } from "next/font/google";
 import { notFound } from "next/navigation";
 import { isLocale, locales } from "@/lib/i18n";
 import { getNav } from "@/lib/content";
@@ -12,6 +12,7 @@ import { chatEnabled } from "@/lib/chat/providers";
 import "@/styles/globals.css";
 
 const font = Montserrat({ subsets: ["latin", "vietnamese"], display: "swap", variable: "--font-sans" });
+const serif = Source_Serif_4({ subsets: ["latin", "vietnamese"], display: "swap", variable: "--font-serif" });
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -32,7 +33,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   if (!isLocale(locale)) notFound();
   const nav = getNav(locale);
   return (
-    <html lang={locale} className={font.variable}>
+    <html lang={locale} className={`${font.variable} ${serif.variable} v4`}>
       <head>
         <link
           rel="stylesheet"

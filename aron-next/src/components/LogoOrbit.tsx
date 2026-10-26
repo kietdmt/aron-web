@@ -94,7 +94,7 @@ export default function LogoOrbit({ items, industryLabel, locationLabel, detailL
         if (pr.in) s *= 1 + 0.16 * Math.max(0, 1 - Math.hypot(x - pr.x, y - pr.y) / 300); // lại gần thì phóng to
         s = Math.max(0.06, s) * k0 * Math.max(0.01, ez);
         el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${s.toFixed(3)})`;
-        el.style.opacity = (Math.max(0, 1 - k * 0.85) * Math.min(1, local * 2)).toFixed(2);
+        el.style.opacity = (Math.max(0, 1 - k * 0.35) * Math.min(1, local * 2)).toFixed(2);
         el.style.zIndex = String(Math.round(s * 100));
         el.style.pointerEvents = s < 0.3 ? "none" : "auto";
       });

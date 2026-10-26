@@ -592,3 +592,141 @@ a.more, .more, .feature .more { color: var(--plum-d); }
 .rv.rv-img { transform: translate3d(0, 22px, 0) scale(.965); }
 .rv.rv-in { opacity: 1; transform: none; }
 @media print, (prefers-reduced-motion: reduce) { .rv { opacity: 1 !important; transform: none !important; transition: none !important; } }
+
+/* ===== v4 — Phong cách "Oracle AI Explained" cho toàn bộ website công khai (chỉ áp dụng khi <html class="v4">) ===== */
+html.v4 {
+  --slate: #182b38; --slate-2: #11212c; --taupe: #3b3a3d;
+  --teal: #9fc3c6; --teal-d: #8fb8c4; --coral: #e07a5f; --cream: #f0d6b8; --gold: #d09e60; --plum: #a58bc4; --sand: #c3ae89; --rose: #cfa2a8;
+  --orange: #d09e60; --orange-dark: #b9843f; --navy: #182b38; --blue: #8fb8c4; --sky: #9fc3c6;
+  --plum-d: #8a6fa8; --coral-d: #d4664a; --btn-ink: #2a1f24;
+  --ink: #f4ede2; --ink-2: #cdd8dc; --muted: #9fb0b7; --bg: #182b38; --bg-alt: #1c3140; --line: rgba(240, 214, 184, .16);
+  --shadow: 0 18px 42px rgba(3, 10, 16, .42);
+  --grad: linear-gradient(135deg, #11212c 0%, #182b38 55%, #1f3845 100%);
+  --font-head: var(--font-serif), "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+html.v4 body { background: radial-gradient(1100px 700px at 85% 0%, rgba(58, 107, 107, .38), transparent 62%), radial-gradient(900px 700px at 0% 60%, rgba(207, 162, 168, .07), transparent 60%), #182b38; background-attachment: fixed; color: var(--ink-2); }
+html.v4 h1, html.v4 h2, html.v4 .section-title, html.v4 .mega-title { font-family: var(--font-head); font-weight: 500; letter-spacing: -.01em; color: var(--ink); }
+html.v4 h3 { color: var(--ink); }
+html.v4 .hero-home h1 { font-weight: 400; line-height: 1.12; }
+html.v4 .hero-home h1 .accent { font-family: var(--font-head); font-weight: 700 !important; }
+html.v4 .hero-home h1 .oracle-red { font-weight: 400 !important; }
+html.v4 .muted, html.v4 .eyebrow { color: var(--muted); }
+html.v4 .eyebrow { letter-spacing: .12em; }
+html.v4 .lead.dark, html.v4 .intro p, html.v4 p { color: inherit; }
+html.v4 a.more, html.v4 .more, html.v4 .prose a { color: var(--cream); }
+html.v4 a.more:hover, html.v4 .more:hover { color: #fff; }
+
+/* Thanh trên + menu: xanh đêm, kính mờ */
+html.v4 .utility { background: #11212c; color: #aebcc2; border-bottom: 1px solid var(--line); }
+html.v4 .site-header { background: rgba(17, 33, 44, .88); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+html.v4 .brand img { filter: brightness(0) invert(1); }
+html.v4 .nav-list > li > a, html.v4 .nav-list > li > button { color: #e8dfd2; }
+html.v4 .nav-list > li > a:hover, html.v4 .nav-list > li > button:hover, html.v4 .has-mega.is-open > button { color: var(--cream); border-bottom-color: var(--gold); }
+html.v4 .mega { background: #11212c; border-top: 1px solid var(--line); border-bottom: 3px solid var(--gold); box-shadow: 0 30px 50px rgba(3, 10, 16, .55); }
+html.v4 .mega-links a { color: #e8dfd2; border-bottom-color: var(--line); }
+html.v4 .mega-links a:hover { color: var(--cream); }
+html.v4 .mega-intro { border-right-color: var(--line); }
+html.v4 .burger { color: #fff; }
+@media (max-width: 900px) { html.v4 .nav { background: #11212c; border-bottom: 1px solid var(--line); } html.v4 .nav-list > li > a, html.v4 .nav-list > li > button { color: #e8dfd2; } }
+
+/* Các khu vực nền tối, họa tiết nhẹ phía sau */
+html.v4 .section, html.v4 .prefooter { position: relative; overflow: hidden; background: transparent; }
+html.v4 .section.alt { background: linear-gradient(180deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, .015)); border-block: 1px solid rgba(240, 214, 184, .07); }
+html.v4 .section.dark { background: radial-gradient(900px 420px at 90% 0%, rgba(58, 107, 107, .5), transparent 60%), radial-gradient(700px 400px at 0% 100%, rgba(207, 162, 168, .14), transparent 60%), #11212c; }
+html.v4 .section > .container, html.v4 .prefooter > .container { position: relative; z-index: 1; }
+html.v4 .section::before, html.v4 .section::after { content: ""; position: absolute; pointer-events: none; z-index: 0; background-repeat: no-repeat; background-size: contain; opacity: .72; }
+html.v4 .section:nth-of-type(4n+1)::before { width: 380px; height: 380px; right: -150px; top: -60px; background-image: url("/img/art/deco-pink.svg"); }
+html.v4 .section:nth-of-type(4n+1)::after { width: 300px; height: 300px; left: -90px; bottom: -70px; background-image: url("/img/art/deco-dots.svg"); opacity: .55; }
+html.v4 .section:nth-of-type(4n+2)::before { width: 330px; height: 330px; left: -140px; top: 10%; background-image: url("/img/art/deco-amber.svg"); opacity: .7; }
+html.v4 .section:nth-of-type(4n+2)::after { width: 360px; height: 360px; right: -60px; bottom: -80px; background-image: url("/img/art/deco-leaves.svg"); opacity: .75; }
+html.v4 .section:nth-of-type(4n+3)::before { width: 300px; height: 300px; right: -110px; top: 18%; background-image: url("/img/art/deco-lav.svg"); opacity: .68; }
+html.v4 .section:nth-of-type(4n+3)::after { width: 280px; height: 280px; left: -60px; bottom: -60px; background-image: url("/img/art/deco-pink.svg"); opacity: .6; }
+html.v4 .section:nth-of-type(4n)::before { width: 340px; height: 340px; left: -120px; bottom: -80px; background-image: url("/img/art/deco-dots.svg"); opacity: .55; }
+html.v4 .section:nth-of-type(4n)::after { width: 320px; height: 320px; right: -120px; top: -50px; background-image: url("/img/art/deco-amber.svg"); opacity: .62; }
+html.v4 .hero-home + .section.alt::before, html.v4 .hero-home + .section.alt::after { display: none; }
+html.v4 .hero-home + .section.alt { background: none; border: 0; }
+
+/* Thẻ kính mờ */
+html.v4 .feature, html.v4 .tile, html.v4 .slide, html.v4 .client-card, html.v4 .info-card, html.v4 .post-card, html.v4 .map-card, html.v4 .job-side, html.v4 .job-main {
+  background: linear-gradient(160deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .03)); border: 1px solid var(--line); box-shadow: 0 14px 34px rgba(3, 10, 16, .28); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: var(--ink-2);
+}
+html.v4 .feature:hover, html.v4 .tile:hover, html.v4 .slide:hover, html.v4 .client-card:hover, html.v4 .info-card:hover, html.v4 .post-card:hover { border-color: rgba(208, 158, 96, .55); box-shadow: 0 26px 52px rgba(3, 10, 16, .5); }
+html.v4 .feature p, html.v4 .slide p, html.v4 .info-card p, html.v4 .client-card p, html.v4 .post-card p { color: #b9c6cb; }
+html.v4 .client-card p span { color: var(--muted); }
+html.v4 .client-card .logo { background: #f6efe3; border-radius: 14px; padding: 10px; }
+html.v4 .tile { color: var(--ink); }
+html.v4 .feature::before { background: linear-gradient(90deg, var(--rose), var(--gold), var(--cream)); }
+
+/* Ô biểu tượng: màu pastel như các khối trong video */
+html.v4 .ico-tile, html.v4 .info-card .material-symbols-outlined { border: 0; background: linear-gradient(145deg, #dcb1b6, #bf8f98); box-shadow: 0 10px 22px rgba(3, 10, 16, .3); }
+html.v4 .feature:nth-child(5n+2) .ico-tile, html.v4 .info-card:nth-child(5n+2) .material-symbols-outlined { background: linear-gradient(145deg, #dfb77a, #c58f4f); }
+html.v4 .feature:nth-child(5n+3) .ico-tile, html.v4 .info-card:nth-child(5n+3) .material-symbols-outlined { background: linear-gradient(145deg, #b79bc9, #8a6fa8); }
+html.v4 .feature:nth-child(5n+4) .ico-tile { background: linear-gradient(145deg, #d9c9a3, #b5a37c); }
+html.v4 .feature:nth-child(5n+5) .ico-tile { background: linear-gradient(145deg, #f6dfc6, #e2b88f); }
+html.v4 .ico-tile .ico-img, html.v4 .ico-tile svg { filter: brightness(0) saturate(100%) invert(14%) sepia(20%) saturate(900%) hue-rotate(160deg); }
+html.v4 .material-symbols-outlined { color: var(--cream); }
+html.v4 .ico-tile .material-symbols-outlined, html.v4 .info-card .material-symbols-outlined { color: #1f2f3a; }
+html.v4 .tile .material-symbols-outlined { background: linear-gradient(145deg, #dcb1b6, #bf8f98); color: #1f2f3a; box-shadow: 0 10px 22px rgba(3, 10, 16, .3); }
+html.v4 .tile-grid li:nth-child(5n+2) .tile .material-symbols-outlined { background: linear-gradient(145deg, #dfb77a, #c58f4f); }
+html.v4 .tile-grid li:nth-child(5n+3) .tile .material-symbols-outlined { background: linear-gradient(145deg, #b79bc9, #8a6fa8); }
+html.v4 .tile-grid li:nth-child(5n+4) .tile .material-symbols-outlined { background: linear-gradient(145deg, #d9c9a3, #b5a37c); }
+html.v4 .tile-grid li:nth-child(5n+5) .tile .material-symbols-outlined { background: linear-gradient(145deg, #f6dfc6, #e2b88f); }
+html.v4 .tile:hover .material-symbols-outlined { background: linear-gradient(145deg, #f6e1c6, #e9bf93); box-shadow: 0 10px 22px rgba(208, 158, 96, .4); }
+
+/* Dải số liệu nổi trên banner */
+html.v4 .hero-home + .section.alt .stats { background: linear-gradient(160deg, rgba(24, 43, 56, .92), rgba(17, 33, 44, .94)); border: 1px solid rgba(240, 214, 184, .22); box-shadow: 0 30px 70px rgba(3, 10, 16, .5); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+html.v4 .hero-home + .section.alt .stats li + li::before { background: rgba(240, 214, 184, .18); }
+html.v4 .stats span { color: #b9c6cb; }
+html.v4 .stats-cta h2 { color: var(--ink); }
+
+/* Banner + hình hero */
+html.v4 .hero-home { background: radial-gradient(900px 560px at 72% 52%, rgba(58, 107, 107, .62), transparent 62%), radial-gradient(700px 420px at 8% 100%, rgba(207, 162, 168, .12), transparent 60%), linear-gradient(135deg, #182b38, #1f3845); }
+html.v4 .hero:not(.hero-home) { background-color: #182b38; }
+html.v4 .hero-art-img { filter: drop-shadow(0 30px 50px rgba(3, 10, 16, .5)); }
+html.v4 .announce { background: linear-gradient(90deg, #3b3a3d, #182b38); border-block: 1px solid var(--line); }
+html.v4 .prefooter { background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(17, 33, 44, .6)); border-top: 1px solid var(--line); }
+
+/* Tiêu đề mục + đường kẻ */
+html.v4 .section-title:not(.left)::after, html.v4 .section-title.left::after { background: linear-gradient(90deg, var(--rose), var(--gold), var(--plum)); }
+
+/* Nút viền (ngoài banner) trên nền tối */
+html.v4 .btn-outline, html.v4 .btn.btn-outline { color: var(--cream) !important; border: 2px solid rgba(240, 214, 184, .6) !important; background-color: transparent !important; }
+html.v4 .btn-outline:hover, html.v4 .btn.btn-outline:hover { background-color: var(--cream) !important; color: #182b38 !important; border-color: var(--cream) !important; }
+
+/* Biểu mẫu */
+html.v4 input, html.v4 textarea, html.v4 select { background: rgba(255, 255, 255, .06); border: 1.5px solid rgba(240, 214, 184, .24); color: var(--ink); }
+html.v4 input::placeholder, html.v4 textarea::placeholder { color: #8fa1a8; }
+html.v4 input:focus, html.v4 textarea:focus, html.v4 select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(208, 158, 96, .25); }
+html.v4 .field label { color: var(--ink); }
+html.v4 select option { color: #182b38; }
+html.v4 .note.ok { background: rgba(159, 195, 198, .15); color: #d7ecee; }
+html.v4 .note.err { background: rgba(224, 122, 95, .16); color: #f6c4b6; }
+
+/* Blog, bài viết, trang pháp lý */
+html.v4 .post-body h3 a, html.v4 .post-side li a { color: var(--ink); }
+html.v4 .post-body h3 a:hover, html.v4 .post-side li a:hover { color: var(--cream); }
+html.v4 .post-cover em { background: rgba(240, 214, 184, .92); color: #182b38; }
+html.v4 .prose, html.v4 .prose p, html.v4 .prose li { color: var(--ink-2); }
+html.v4 .prose h2, html.v4 .prose h3, html.v4 .prose strong { color: var(--ink); }
+html.v4 .prose blockquote { border-left-color: var(--gold); color: var(--ink-2); }
+html.v4 .prose code { background: rgba(255, 255, 255, .08); color: var(--cream); }
+html.v4 .blog-search { background: rgba(255, 255, 255, .95); }
+html.v4 .plain-links a { color: var(--ink); border-bottom-color: var(--line); }
+html.v4 .plain-links a:hover { color: var(--cream); }
+html.v4 .rows .row h3 { color: var(--ink); }
+html.v4 .req, html.v4 .bullets li, html.v4 .fact { color: var(--ink-2); }
+html.v4 .fact h3 { color: var(--cream); }
+html.v4 .site-footer { background: radial-gradient(800px 300px at 100% 0%, rgba(58, 107, 107, .5), transparent 60%), #0f1c26; border-top: 1px solid var(--line); }
+html.v4 .site-footer a:hover { color: var(--cream); }
+
+/* Logo orbit (đối tác) */
+html.v4 .hive-dot, html.v4 .orbit-detail { background: #fff; }
+html.v4 .orbit-detail, html.v4 .orbit-detail h3, html.v4 .orbit-detail p { color: #182b38; }
+
+@media (max-width: 760px) { html.v4 .section::before, html.v4 .section::after { opacity: .28; transform: scale(.7); } }
+@media (prefers-reduced-motion: no-preference) {
+  html.v4 .section::before { animation: decoDrift 16s ease-in-out infinite; }
+  html.v4 .section::after { animation: decoDrift 20s ease-in-out infinite reverse; }
+}
+@keyframes decoDrift { 0%, 100% { translate: 0 0; } 50% { translate: 0 -14px; } }
+html.v4 .hero-home { background-repeat: no-repeat; background-size: cover; background-position: center bottom; background-color: #182b38; }
