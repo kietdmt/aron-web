@@ -748,3 +748,16 @@ html.v4 .hero-data .lead { text-shadow: 0 1px 14px rgba(8,18,26,.9); }
 html.v4 .hero-ai::before { background: linear-gradient(90deg, rgba(20,37,48,.95) 0%, rgba(20,37,48,.85) 42%, rgba(20,37,48,.25) 70%, rgba(20,37,48,0) 100%); }
 html.v4 .hero-ai .lead { text-shadow: 0 1px 14px rgba(8,18,26,.9); }
 @media (max-width: 900px) { html.v4 .hero-ai::before { background: linear-gradient(180deg, rgba(20,37,48,.9) 0%, rgba(20,37,48,.8) 100%); } }
+
+/* Khung chat: ô nhập luôn nền trắng, chữ tối (không bị theme tối ghi đè) */
+html.v4 .chat-input input,
+html.v4 .chat-lead input,
+html.v4 .chat-lead textarea {
+  background: #fff !important;
+  color: #1f2a30 !important;
+  -webkit-text-fill-color: #1f2a30;
+  caret-color: #1f2a30;
+}
+html.v4 .chat-input input::placeholder,
+html.v4 .chat-lead input::placeholder { color: #8a949a !important; opacity: 1; -webkit-text-fill-color: #8a949a; }
+html.v4 .chat-input input::selection { background: #bfe3e0; color: #1f2a30; }
